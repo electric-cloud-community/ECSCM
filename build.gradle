@@ -8,7 +8,7 @@
 
 buildscript {
 	repositories {
-		maven { url 'http://dl.bintray.com/ecpluginsdev/maven' }
+		maven { url 'https://nexus-internal.cloudbees.com/content/repositories/snapshots' }
 
 		jcenter()
 	}
