@@ -13,7 +13,7 @@ repositories {
     mavenCentral()
     jcenter()
     maven {
-        url "https://nexus-internal.cloudbees.com/content/repositories/snapshots"
+        url "https://nexus-internal.cloudbees.com/content/groups/mirror/"
     }
     maven {
         url 'https://oss.sonatype.org/content/repositories/snapshots'

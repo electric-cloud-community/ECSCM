@@ -8,7 +8,7 @@
 
 buildscript {
 	repositories {
-		maven { url 'https://nexus-internal.cloudbees.com/content/repositories/snapshots' }
+		maven { url 'https://nexus-internal.cloudbees.com/content/groups/mirror/' }
 
 		jcenter()
 	}
