@@ -1,0 +1,11 @@
+<page>
+  <componentContainer>
+    <title>New Extract Preflight Sources Step</title>
+    <helpLink>/link/showHelp?page=extractpreflightsources</helpLink>
+    <component plugin="@PLUGIN_KEY@"
+               version="@PLUGIN_VERSION@"
+               ref="CustomEditorPortal">
+      <panel>preflightStep</panel>
+    </component>
+  </componentContainer>
+</page>

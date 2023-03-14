@@ -1,0 +1,150 @@
+#!/bin/perl
+
+#
+#############################################################################
+# This script is used during development. The model is to have code in 
+# files on the file system that are syncd to properties in Commander
+# 
+# Workflow
+#
+# 0) checkout source
+# 1) edit a source file
+# 2) run this script
+# 3) test functionality in Commander
+# 4) repeat 1-3 as needed
+# 5) run ./pull.pl to make new plugin jar files from content in commander
+#
+# %files holds a mapping between the project/property in commander and the
+# file in the source tree
+#############################################################################
+
+use ElectricCommander;
+use File::Copy;
+use File::Basename;
+use File::Find;
+use Time::Local;
+
+$| = 1;
+
+$::gSetCode = 0;
+$::gFileName = "$ARGV[0]" || "./push.txt";
+$::gDebug = "$ARGV[1]" || 0;
+
+foreach my $argnum (0 .. $#ARGV) {
+    if ($ARGV[$argnum] eq "-v") { $::gDebug = 1; }
+    if ($ARGV[$argnum] eq "-s") { $::gSetCode = 1; }
+    if ($ARGV[$argnum] eq "-f") { $::gFileName = $ARGV[++$argnum]; }
+}
+
+my $ec = new ElectricCommander();
+$ec->abortOnError(0);
+
+my %map; 
+print "Processing file $::gFileName\n";
+open P, "< $::gFileName";
+while (<P>) {
+    my $line = $_;
+    if ($line =~ /^#/) { next; }
+    if ($line =~ /^[\s]/) { next;}
+    my ($key,$val) = split(/,/,$line);
+    $key =~ s/^[\s]*//;
+    $key =~ s/[\s]*$//;
+    $val =~ s/^[\s]*//;
+    $val =~ s/[\s]*$//;
+    $map{$key} = "$val";
+}
+close P;
+if ($::gDebug) {
+    foreach my $k (keys %map) {
+        print "map{$k}=[" . $map{$k} . "]\n";
+    }
+}
+
+sub wanted {
+    my $file = $_;
+    my $full = $File::Find::name;
+    # if it has an extension  (.something)
+    if ($full =~ m/.*\.[\w]*$/) { 
+        push @::gFiles, $full; 
+        if ($::gDebug) { print "found file=$full\n"; }
+    }
+}
+
+sub main {
+    # get list of files for this plugin
+
+    # process files
+    foreach my $file (sort keys %map) {
+        my $property = $map{$file};
+        my $proptime = getPropModTime($property);
+        my $filetime = getFileModTime($file);
+        if (!defined $proptime || !defined $filetime) { next; }
+        if ($::gDebug) { print "File:$filetime Property:$proptime\n"; }
+
+        # file newer than property
+        if ($filetime > $proptime) {
+            # create backup file
+            print "Pushing $file\n";
+            my $res = undef;
+            if ($property =~ /command$/) {
+                # /projects/projectName/procedures/procedureName/steps/stepName/command
+                $property =~ '/projects/(.*)/procedures/(.*)/steps/(.*)/command';
+                $res = $ec->modifyStep("$1", "$2", "$3", { commandFile=> "./$file"});
+            } else {
+                $res = $ec->setProperty("$property",{valueFile=>"./$file"});
+            }
+            my $msg = $ec->getError();
+            if ($msg ne "") {
+                    warn "Warning: [$msg]\n";
+                    next;
+            }
+        } else {
+            print "...skipping $file\n";
+        }
+    }
+}
+
+sub getPropModTime {
+    my $property = shift;
+    # find modification time of property
+    my $xPath = $ec->getProperty("$property",{expand => 0});
+    my $dststring = $xPath->findvalue('//modifyTime')->string_value;
+    if ($::gDebug) { print "getProperty finished for $property\n"; }
+    my $proptime = 0;
+    my $msg = $ec->getError();
+    if ($msg ne "" ) {
+        my $code = $xPath->findvalue('//code');
+        if ($code ne "NoSuchProperty") { 
+            warn "Warning: [$msg]\n"; 
+            return undef;
+        }
+        # property does not exist return a time in the past
+        $proptime = 0;
+    } else {
+
+        # 2009-12-15T03:53:50.574Z
+        #print "str=$dststring\n";
+        $dststring =~ '(....)-(..)-(..)T(..):(..):(.*)Z';
+        #                     sec min hr  day mon   yr
+        $proptime =  timegm($6, $5, $4, $3, $2-1, $1-1900);
+        ##print "prop $property mod time=$dststring $proptime\n"; 
+    }
+    return $proptime;
+}
+
+sub getFileModTime {
+    my $file = shift;
+    # find modification time of file
+    my $dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
+        $atime,$mtime,$ctime,$blksize,$blocks;
+    ($dev,$ino,$mode,$nlink,$uid,$gid,$rdev,$size,
+        $atime,$mtime,$ctime,$blksize,$blocks) = stat($file);
+    if (!defined $mtime) {
+        print "error getting file time:$file\n";
+        return undef;
+    }
+    ##print "file $file mod time=$mtime\n"; 
+    return $mtime;
+}
+
+main();

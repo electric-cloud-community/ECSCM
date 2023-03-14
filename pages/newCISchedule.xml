@@ -1,0 +1,11 @@
+<page>
+  <componentContainer>
+    <title>New Continuous Integration Schedule</title>
+    <helpLink>/link/showHelp?page=newcischedule</helpLink>
+    <component plugin="@PLUGIN_KEY@"
+               version="@PLUGIN_VERSION@"
+               ref="CustomEditorPortal">
+      <panel>sentrySchedule</panel>
+    </component>
+  </componentContainer>
+</page>

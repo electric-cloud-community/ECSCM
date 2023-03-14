@@ -1,0 +1,34 @@
+@external .gwt-RadioButton;
+
+table.ciCheckoutForm input {
+    padding: 2px;
+}
+
+table.ciCheckoutForm input.shortInput {
+    width: 150px;
+}
+
+table.ciCheckoutForm input.mediumInput {
+    width: 250px;
+}
+
+table.ciCheckoutForm input.longInput {
+    width: 450px;
+}
+
+table.ciCheckoutForm td.formLabel {
+    padding-right: 5px;
+    padding-top: 10px;
+    text-align: right;
+    vertical-align: top;
+    width: 150px;
+}
+
+table.requiredField div.requiredLabel {
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+table.ciCheckoutForm div.addListElement {
+    padding-top: 7px;
+}

@@ -1,0 +1,123 @@
+<?xml version='1.0' standalone='yes'?>
+<fileset>
+  <file>
+    <path>postp_electricSentry.pl</path>
+    <xpath>//property[propertyName=&quot;postpExtensions&quot;]/propertySheet/property[propertyName=&quot;electricSentry&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>postp_electricSentryCheckForNewSources.pl</path>
+    <xpath>//property[propertyName=&quot;electricSentryCheckForNewSources&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>postp_webhookProcessor.pl</path>
+    <xpath>//property[propertyName=&quot;postpExtensions&quot;]/propertySheet/property[propertyName=&quot;webhookProcessor&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>helper_bootstrap.pl</path>
+    <xpath>//property[propertyName=&quot;bootstrap&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>customStepPreflight.pl</path>
+    <xpath>//property[propertyName=&quot;customStep_preflight&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>helper_configure.pl</path>
+    <xpath>//property[propertyName=&quot;generic_configure&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>helper_method.pl</path>
+    <xpath>//property[propertyName=&quot;procedure_helpers&quot;]/propertySheet/property[propertyName=&quot;run_driver_method&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ECSCMCfg.pm</path>
+    <xpath>//property[propertyName=&quot;ECSCM::Base::Cfg&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ECSCMDriver.pm</path>
+    <xpath>//property[propertyName=&quot;scm_driver&quot;]/propertySheet/property[propertyName=&quot;ECSCM::Base::Driver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ElectricSentryDriver.pm</path>
+    <xpath>//property[propertyName=&quot;scm_driver&quot;]/propertySheet/property[propertyName=&quot;ElectricSentry::Driver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>GlobalCfg.pm</path>
+    <xpath>//property[propertyName=&quot;ElectricSentry::GlobalCfg&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>JobCfg.pm</path>
+    <xpath>//property[propertyName=&quot;ElectricSentry::JobCfg&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ScheduleCfg.pm</path>
+    <xpath>//property[propertyName=&quot;ElectricSentry::ScheduleCfg&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>TriggerCfg.pm</path>
+    <xpath>//property[propertyName=&quot;ElectricSentry::TriggerCfg&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>mainDriver.pl</path>
+    <xpath>//property[propertyName=&quot;mainClientDriver&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>preamble.pl</path>
+    <xpath>//property[propertyName=&quot;preamble&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>preflightForm.xml</path>
+    <xpath>//property[propertyName=&quot;scm_form&quot;]/propertySheet/property[propertyName=&quot;preflight&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>ec_setup.pl</path>
+    <xpath>//property[propertyName=&quot;ec_setup&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>createAndAttachCredential.pl</path>
+    <xpath>//procedure[procedureName=&quot;CreateConfiguration&quot;]/step[stepName=&quot;Create and attach credential&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>deleteConfiguration.pl</path>
+    <xpath>//procedure[procedureName=&quot;DeleteConfiguration&quot;]/step[stepName=&quot;Delete configuration&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>processWebHookSchedules.pl</path>
+    <xpath>//procedure[procedureName=&quot;ProcessWebHookSchedules&quot;]/step[stepName=&quot;ProcessWebHookSchedules&quot;]/command</xpath>
+  </file>
+  <file>
+    <path>processQueuedWebhook.pl</path>
+    <xpath>//procedure[procedureName=&quot;ProcessQueuedWebhook&quot;]/step[stepName=&quot;ProcessQueuedWebhook&quot;]/command</xpath>
+  </file>
+  <!-- Beginning wiring datasource files -->
+  <file>
+    <path>continuousIntegrationSchedulesOptions.dsl</path>
+    <xpath>//procedure[procedureName=&quot;_DOISDataSourceHelper&quot;]/propertySheet/property[propertyName=&quot;ec_form&quot;]/propertySheet/property[propertyName=&quot;parameterOptions&quot;]/propertySheet/property[propertyName=&quot;ciScheduleName&quot;]/value</xpath>
+  </file>
+  <!-- Create datasource files -->
+  <file>
+    <path>reporting/build/create/script.dsl</path>
+    <xpath>//property[propertyName=&quot;ec_devops_insight&quot;]/propertySheet/property[propertyName=&quot;build&quot;]/propertySheet/property[propertyName=&quot;operations&quot;]/propertySheet/property[propertyName=&quot;createDOISDataSource&quot;]/propertySheet/property[propertyName=&quot;script&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>reporting/build/create/form.xml</path>
+    <xpath>//property[propertyName=&quot;ec_devops_insight&quot;]/propertySheet/property[propertyName=&quot;build&quot;]/propertySheet/property[propertyName=&quot;operations&quot;]/propertySheet/property[propertyName=&quot;createDOISDataSource&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <!-- End of create datasource files -->
+  <!-- Modify datasource files -->
+  <file>
+    <path>reporting/build/modify/script.dsl</path>
+    <xpath>//property[propertyName=&quot;ec_devops_insight&quot;]/propertySheet/property[propertyName=&quot;build&quot;]/propertySheet/property[propertyName=&quot;operations&quot;]/propertySheet/property[propertyName=&quot;modifyDOISDataSource&quot;]/propertySheet/property[propertyName=&quot;script&quot;]/value</xpath>
+  </file>
+  <file>
+    <path>reporting/build/modify/form.xml</path>
+    <xpath>//property[propertyName=&quot;ec_devops_insight&quot;]/propertySheet/property[propertyName=&quot;build&quot;]/propertySheet/property[propertyName=&quot;operations&quot;]/propertySheet/property[propertyName=&quot;modifyDOISDataSource&quot;]/propertySheet/property[propertyName=&quot;ec_parameterForm&quot;]/value</xpath>
+  </file>
+  <!-- End of modify datasource files -->
+  <!-- Delete datasource files -->
+  <file>
+    <path>reporting/build/delete/script.dsl</path>
+    <xpath>//property[propertyName=&quot;ec_devops_insight&quot;]/propertySheet/property[propertyName=&quot;build&quot;]/propertySheet/property[propertyName=&quot;operations&quot;]/propertySheet/property[propertyName=&quot;deleteDOISDataSource&quot;]/propertySheet/property[propertyName=&quot;script&quot;]/value</xpath>
+  </file>
+  <!-- End of delete datasource files -->
+  <!-- End of wiring datasource files -->
+</fileset>

@@ -1,0 +1,9 @@
+<module>
+    <entry-point class="ecplugins.ECSCM.client.CICheckoutFactory"/>
+    <inherits name="com.google.gwt.resources.Resources"/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.electriccloud.commander.gwt.ComponentBase"/>
+    <inherits name="ecinternal.ECInternal"/>
+
+    <extend-property name="locale" values="ja,ko,zh"/>
+</module>

@@ -1,0 +1,104 @@
+apply plugin: "groovy"
+apply plugin: 'idea'
+
+version = "1.0"
+description = "ECSCM Specs"
+sourceCompatibility = 1.8
+
+defaultTasks 'test'
+
+group 'com.electriccloud'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url "https://dl.bintray.com/ecpluginsdev/maven"
+    }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+    maven {
+        url 'http://35.234.102.60/artifactory/ec'
+        credentials {
+            username = System.getenv('ARTIFACTORY_USERNAME') ?: 'build'
+            password = System.getenv("ARTIFACTORY_PASSWORD")
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'http://35.234.102.60/artifactory/ec'
+            credentials {
+                username = System.getenv('ARTIFACTORY_USERNAME') ?: 'build'
+                password = System.getenv("ARTIFACTORY_PASSWORD")
+            }
+        }
+    }
+
+    dependencies {
+        classpath group: 'com.electriccloud', name: 'commander-api-bindings', version: '9.0.0-SNAPSHOT'
+    }
+
+}
+
+
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.5:indy'
+    // compile 'org.spockframework:spock-core:1.1-groovy-2.4-SNAPSHOT'
+    compile 'org.spockframework:spock-core:1.1-groovy-2.4'
+    compile 'com.electriccloud:ec-specs-plugins-core:1.6.1'
+    testCompile 'com.electriccloud:commander-api-bindings:9.0.0-SNAPSHOT'
+    compile 'com.jayway.restassured:rest-assured:2.4.0'
+    testCompile('com.athaydes:spock-reports:1.6.0') {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+
+}
+
+import com.electriccloud.client.groovy.ElectricFlow
+
+task promotePlugins {
+    logger.info "Promoting child plugins anew"
+    def server = findProperty('server') ?: findProperty('COMMANDER_SERVER') ?: findProperty('commanderServer')
+    if (server) {
+        ElectricFlow ef = new ElectricFlow()
+        def session = ef.login(server, 'admin', 'changeme')
+        println session
+        def pluginName = ef.getProjects()?.project.find { it.pluginKey == 'ECSCM-Property' }?.projectName
+        println "Plugin name is $pluginName"
+        def response = ef.promotePlugin(pluginName: pluginName, promoted: false)
+        println ("Demoted plugin $pluginName: $response")
+        response = ef.promotePlugin(pluginName: pluginName, promoted: true)
+        println("Promoted plugin $pluginName: $response")
+    }
+}
+
+
+test {
+    dependsOn promotePlugins
+    systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true
+    def server = findProperty('server') ?: findProperty('COMMANDER_SERVER') ?: findProperty('commanderServer') ?: 'localhost'
+    systemProperties['COMMANDER_SERVER'] = server
+    systemProperties["COMMANDER_SECURE"] = '1'
+
+    testLogging {
+        showStandardStreams = true
+    }
+    outputs.upToDateWhen { false }
+    systemProperties['EC_SPECS_CLI'] = true
+
+    def destination = findProperty('reportDestination') ?: "spec-report"
+    if (destination) {
+        reports {
+            html.destination = "$destination/spock-report"
+        }
+        systemProperty 'com.athaydes.spockframework.report.outputDir', destination
+    }
+}
+
+

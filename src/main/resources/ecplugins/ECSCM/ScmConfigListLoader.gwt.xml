@@ -1,0 +1,4 @@
+<module>
+  <inherits name="com.electriccloud.commander.gwt.ComponentBase"/>
+  <inherits name="ecinternal.ECInternal"/>
+</module>

@@ -1,0 +1,18 @@
+<editor>
+    <formElement>
+        <label>Continuous Integration Schedule Project Name:</label>
+        <property>ciProjectName</property>
+        <type>project</type>
+        <required>1</required>
+        <documentation>Name of the project containing the continuous integration schedule associated with the release.</documentation>
+    </formElement>
+	<formElement>
+        <label>Continuous Integration Schedule Name:</label>
+        <property>ciScheduleName</property>
+        <type>select</type>
+        <required>1</required>
+        <serverOptions>1</serverOptions>
+        <dependsOn>ciProjectName</dependsOn>
+        <documentation>Name of the continuous integration schedule associated with the release.</documentation>
+    </formElement>
+</editor>

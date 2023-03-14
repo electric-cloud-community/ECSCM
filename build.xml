@@ -1,0 +1,21 @@
+<project name="ECSCM" default="package" basedir=".">
+  <description>Build the ECSCM plugin</description>
+
+  <property name="buildconfigdir" value="../build"/>
+
+  <!-- plugin specific properties -->
+  <property name="pluginKey" value="ECSCM"/>
+  <property name="pluginVersion" value="1.0"/>
+  <property name="gwtModules"
+            value="ecplugins.ECSCM.ConfigurationManagement,ecplugins.ECSCM.CustomEditorPortal,ecplugins.ECSCM.CICheckoutParameterPanel"/>
+  <property name="package.export.src" value="ecscm.srcs"/>
+
+  <import file="${buildconfigdir}/buildTargets.xml"/>
+
+  <!-- Package sources for exported utility classes. -->
+  <fileset id="ecscm.srcs" dir="${dir.src}/main/java">
+    <include name="**/CICheckoutConstants.*"/>
+    <include name="**/ScmConfigList.java"/>
+    <include name="**/ScmConfigListLoader.*"/>
+  </fileset>
+</project>

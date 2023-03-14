@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <key>@PLUGIN_KEY@</key>
+  <version>@PLUGIN_VERSION@</version>
+  <label>@PLUGIN_KEY@</label>
+  <description>Base plugin for all SCM plugins</description>
+  <author>CloudBees</author>
+  <authorUrl>http://www.electric-cloud.com/support</authorUrl>
+  <category>Source Code Management</category>
+  <help>help.xml</help>
+  <repositoryUrl>https://github.com/electric-cloud/ECSCM</repositoryUrl>
+  <commander-version min="4.0"/>
+  <customTypes>
+    <customType name="continuousIntegration">
+      <displayName>Continuous Integration</displayName>
+      <description>Create a new CI shedule.</description>
+      <category>SCM</category>
+      <page pageName="editSchedule" definition="pages/newCISchedule.xml"/>
+    </customType>
+    <customType name="preflight">
+      <displayName>Extract Preflight Sources</displayName>
+      <description>Extract preflight sources from an SCM configuration.</description>
+      <category>SCM</category>
+      <page pageName="editStep" definition="pages/newPreflightStep.xml"/>
+    </customType>
+    <customType name="CICheckout">
+      <parameterPanel>
+        <javascript>war/ecplugins.ECSCM.CICheckoutParameterPanel/ecplugins.ECSCM.CICheckoutParameterPanel.nocache.js</javascript>
+        <help>/commander/pages/@PLUGIN_KEY@-@PLUGIN_VERSION@/help#cicheckout</help>
+      </parameterPanel>
+    </customType>
+  </customTypes>
+  <components>
+    <component name="CustomEditorPortal">
+      <javascript>war/ecplugins.ECSCM.CustomEditorPortal/ecplugins.ECSCM.CustomEditorPortal.nocache.js</javascript>
+    </component>
+    <component name="ConfigurationManagement">
+      <javascript>war/ecplugins.ECSCM.ConfigurationManagement/ecplugins.ECSCM.ConfigurationManagement.nocache.js</javascript>
+    </component>
+    <component name="CICheckoutParameterPanel">
+      <javascript>war/ecplugins.ECSCM.CICheckoutParameterPanel/ecplugins.ECSCM.CICheckoutParameterPanel.nocache.js</javascript>
+    </component>
+  </components>
+</plugin>

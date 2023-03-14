@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<editor>
+    <label>Extract Preflight Sources</label>
+    <version>2.3.0</version>
+    <description>Collects source code changes from the client which launched the job, creates a fresh snapshot, and overlays the changes.</description>
+    <formElement>
+        <type>entry</type>
+        <label>Source Directory:</label>
+        <property>dest</property>
+        <required>1</required>
+        <documentation>A path relative to the job's workspace, where the source tree will be created.</documentation>
+    </formElement>
+    <formElement>
+        <property>command</property>
+        <value>$[/projects/$[/plugins/ECSCM/projectName]/scm_form/preflight_command]</value>
+    </formElement>
+    <formElement>
+        <property>postProcessor</property>
+        <value>postp</value>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>timeLimit</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>resourceName</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>shell</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>credentialName</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>condition</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>errorHandling</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>parallel</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>alwaysRun</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>exclusive</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>releaseExclusive</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>workspaceName</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>workingDirectory</property>
+        <configurable>1</configurable>
+    </formElement>
+    <formElement>
+        <property>logFileName</property>
+        <configurable>1</configurable>
+    </formElement>
+</editor>
