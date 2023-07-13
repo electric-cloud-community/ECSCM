@@ -42,4 +42,5 @@
         </component>
     </components>
     <catalogLabel>ECSCM</catalogLabel>
+    <detaledDescription>Base plugin for all SCM plugins</detaledDescription>
 </plugin>
