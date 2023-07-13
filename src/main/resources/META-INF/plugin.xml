@@ -5,10 +5,10 @@
   <label>@PLUGIN_KEY@</label>
   <description>Base plugin for all SCM plugins</description>
   <author>CloudBees</author>
-  <authorUrl>http://www.electric-cloud.com/support</authorUrl>
+  <authorUrl>https://github.com/electric-cloud-community</authorUrl>
   <category>Source Code Management</category>
   <help>help.xml</help>
-  <repositoryUrl>https://github.com/electric-cloud/ECSCM</repositoryUrl>
+  <repositoryUrl>https://github.com/electric-cloud-community/ECSCM</repositoryUrl>
   <commander-version min="4.0"/>
   <customTypes>
     <customType name="continuousIntegration">

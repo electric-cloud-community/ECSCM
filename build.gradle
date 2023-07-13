@@ -7,8 +7,10 @@
 // All rights reserved
 
 buildscript {
-	repositories {
-		maven {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
             url 'https://nexus-internal.cloudbees.com/content/repositories/snapshots'
             credentials {
                 username = System.getenv('NEXUS_USERNAME') ?: nexusUsername
@@ -22,25 +24,15 @@ buildscript {
                 password = System.getenv('NEXUS_PASSWORD') ?: nexusPassword
             }
         }
-
-		jcenter()
-	}
-	dependencies {
-		classpath group: 'com.electriccloud.plugins', name: 'flow-gradle-plugin', version: '+'
-	}
+    }
+    dependencies {
+        classpath group: 'com.electriccloud.plugins', name: 'flow-gradle-plugin', version: '2.4'
+    }
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
-
-    maven {
-        url 'https://nexus-internal.cloudbees.com/content/repositories/snapshots'
-        credentials {
-            username = System.getenv('NEXUS_USERNAME') ?: nexusUsername
-            password = System.getenv('NEXUS_PASSWORD') ?: nexusPassword
-        }
-    }
+    // maven { url 'https://repo.cloudbees.com/content/repositories/dev-connect' }
     maven {
         url 'https://nexus-internal.cloudbees.com/content/groups/mirror'
         credentials {
@@ -50,11 +42,24 @@ repositories {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force group: 'com.electriccloud', name: 'ec-test', version: '10.1.0'
+        force group: 'com.electriccloud', name: 'commander-client', version: '10.1.0'
+        force group: 'com.electriccloud', name: 'commander-sdk', version: '6.1.2.1'
+        force group: 'com.electriccloud', name: 'ec_internal', version: '6.1.2.1'
+        force group: 'com.google.gwt', name: 'gwt-user', version: '2.5.0-ec3'
+        force group: 'com.google.gwt', name: 'gwt-dev', version: '2.5.0-ec1'
+
+        cacheChangingModulesFor 0, 'seconds'
+    }
+}
+
 
 
 group = 'com.electriccloud'
 description = 'Plugins : ECSCM'
-version = '2.3.5'
+version = '2.4.0'
 
 apply plugin: 'flow-gradle-plugin'
 apply plugin: 'license'
